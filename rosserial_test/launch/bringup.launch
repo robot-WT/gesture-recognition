@@ -1,0 +1,14 @@
+<launch>
+    <!-- Start ROS communication between the robot's computer and Linorobot base -->
+    <node pkg="rosserial_test" name="speed" type="speed" output="screen">
+    </node>
+
+    <!-- Publish Linorobot odometry -->
+    <node pkg="rosserial_test" name="odom_req_node" type="odom_req_node"></node>
+
+    <!-- Publish static transform from base_footprint to base_link -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="base_footprint_to_base_link" args="0 0 0.098 0 0 0  /base_footprint /base_link"/>
+
+    <!-- Run Linorobot compatible laser drivers -->
+    <include file="$(find rosserial_test)/launch/include/laser.launch" />
+</launch>
